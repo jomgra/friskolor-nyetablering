@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 
-url = "https://w3d3.skolinspektionen.se/w3d3searchport/search.aspx"
+url = "https://externsearchport.skolinspektionen.se/"
 
 needle = "ansökan om godkännande för en nyetablering av en fristående"
 
@@ -74,14 +74,15 @@ web = s.post(url, payload)
 
 soup = BeautifulSoup(web.text, "html5lib")
 
-cases = soup.find_all("tr", {"class" : "tblItemTemplate"})
-
+cases = web.text.split("\r\n")
 s = {}
 
-for case in cases:
-	dta = case.find_all("a")
-	desc = dta[2].text.lower()
-	if (desc.find(needle) != -1):
-		sp = desc.split(",")
-		addpost(dta[0].text, dta[1].text, sp[-1])
+for case in cases[1:]:
+	dta = case.split("\t")
+	if len(dta) == 3:
+		desc = dta[2].lower().strip()
+		if (desc.find(needle) != -1):
+			sp = desc.split(",")
+			addpost(dta[0], dta[1], sp[-1])
+			#print(dta[0],"|", dta[1], "|", sp[-1])
 
