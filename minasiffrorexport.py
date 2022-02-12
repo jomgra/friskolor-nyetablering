@@ -36,8 +36,9 @@ class site():
 			self.exist = False
 		return
 		
-	def addPage(self, id, title, desc):
+	def addPage(self, index, id, title, desc):
 		page = {
+			"index": int(index),
 			"id": self._cleanid(id),
 			"title": title,
 			"desc": desc
@@ -46,7 +47,8 @@ class site():
 			if self.pages[i]["id"] == self._cleanid(id):
 				self.pages.pop(i)
 				break
-		self.pages.append(page)
+		self.pages.append(page)	
+		self.pages.sort(key=lambda x: x["index"])
 		return
 
 	def removePage(self, id):
@@ -224,6 +226,7 @@ chart.save(opath, "friskolansexpansion")
 minasiffror = site(opath)
 
 minasiffror.addPage(
+	100,
 	"friskolansexpansion",
 	"Friskolans expansion",
 	"Följ friskolekoncernernas expansion genom det ackumulerade antalet ansökningar om nyetablering av friskolor i Sverige. Uppgifterna hämtas automatiskt från Skolinspektionens diarium."
