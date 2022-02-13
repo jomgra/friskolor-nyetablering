@@ -107,7 +107,6 @@ class chartjs:
 		self.options = {
 			"maintainAspectRatio": False,
 			"plugins": {
-				"display": False,
 				"legend": {},
 				"tooltip": {}
 			},
@@ -217,7 +216,9 @@ con.close()
 chart = chartjs("line")
 
 chart.addLabels(lbl)
-chart.addDataset("Antal ansökning fram till detta datum", val)
+chart.addDataset("Antal ansökning fram till detta datum", val, "#F29559")
+
+chart.options["plugins"]["legend"] = { "display": False }
 
 chart.save(opath, "friskolansexpansion")
 
