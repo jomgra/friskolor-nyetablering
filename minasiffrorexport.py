@@ -219,7 +219,7 @@ chart.addLabels(lbl)
 chart.addDataset("Antal ansökning fram till detta datum", val, "#F29559")
 
 chart.options["plugins"]["legend"] = { "display": False }
-chart.options["tension"] = 0.5
+chart.options["tension"] = 0
 
 chart.save(opath, "friskolansexpansion")
 
